@@ -1,9 +1,11 @@
 import { AssetList, Chain } from '@chain-registry/types';
 import {
+  ChainName,
   EndpointOptions,
   Logger,
   LogLevel,
   MainWalletBase,
+  ModalOptions,
   NameServiceName,
   SessionOptions,
   SignerOptions,
@@ -15,6 +17,7 @@ import { ReactNode, useCallback, useMemo } from 'react';
 
 import { ThemeCustomizationProps, WalletModal } from './modal';
 import { defaultModalViews } from './modal/components/views';
+import { SelectedWalletRepoProvider } from './context';
 
 export const ChainProvider = ({
   chains,
@@ -30,16 +33,21 @@ export const ChainProvider = ({
   endpointOptions,
   sessionOptions,
   logLevel = 'WARN',
-  disableIframe = false,
+  allowedIframeParentOrigins = [
+    'https://app.osmosis.zone',
+    'https://daodao.zone',
+    'https://dao.daodao.zone',
+  ],
   children,
   modalTheme = {},
+  modalOptions,
 }: {
-  chains: Chain[];
-  assetLists: AssetList[];
+  chains: (Chain | ChainName)[];
+  assetLists?: AssetList[];
   wallets: MainWalletBase[];
   walletModal?: (props: WalletModalProps) => JSX.Element;
   modalViews?: typeof defaultModalViews;
-  throwErrors?: boolean;
+  throwErrors?: boolean | 'connect_only';
   subscribeConnectEvents?: boolean;
   defaultNameService?: NameServiceName;
   walletConnectOptions?: WalletConnectOptions; // SignClientOptions is required if using wallet connect v2
@@ -47,32 +55,41 @@ export const ChainProvider = ({
   endpointOptions?: EndpointOptions;
   sessionOptions?: SessionOptions;
   logLevel?: LogLevel;
-  disableIframe?: boolean;
+  /**
+   * Origins to allow wrapping this app in an iframe and connecting to this
+   * Cosmos Kit instance.
+   *
+   * Defaults to Osmosis and DAO DAO.
+   */
+  allowedIframeParentOrigins?: string[];
   children: ReactNode;
   modalTheme?: ThemeCustomizationProps;
+  modalOptions?: ModalOptions;
 }) => {
   const logger = useMemo(() => new Logger(logLevel), []);
 
   const withChainProvider = (
     modal: (props: WalletModalProps) => JSX.Element
   ) => (
-    <ChainProviderLite
-      chains={chains}
-      assetLists={assetLists}
-      wallets={wallets}
-      walletModal={modal}
-      throwErrors={throwErrors}
-      subscribeConnectEvents={subscribeConnectEvents}
-      defaultNameService={defaultNameService}
-      walletConnectOptions={walletConnectOptions}
-      signerOptions={signerOptions}
-      endpointOptions={endpointOptions}
-      sessionOptions={sessionOptions}
-      logLevel={logLevel}
-      disableIframe={disableIframe}
-    >
-      {children}
-    </ChainProviderLite>
+    <SelectedWalletRepoProvider>
+      <ChainProviderLite
+        chains={chains}
+        assetLists={assetLists}
+        wallets={wallets}
+        walletModal={modal}
+        throwErrors={throwErrors}
+        subscribeConnectEvents={subscribeConnectEvents}
+        defaultNameService={defaultNameService}
+        walletConnectOptions={walletConnectOptions}
+        signerOptions={signerOptions}
+        endpointOptions={endpointOptions}
+        sessionOptions={sessionOptions}
+        logLevel={logLevel}
+        allowedIframeParentOrigins={allowedIframeParentOrigins}
+      >
+        {children}
+      </ChainProviderLite>
+    </SelectedWalletRepoProvider>
   );
 
   if (walletModal) {
@@ -91,6 +108,7 @@ export const ChainProvider = ({
           ...defaultModalViews,
           ...modalViews,
         }}
+        modalOptions={modalOptions}
       />
     ),
     [defaultModalViews]

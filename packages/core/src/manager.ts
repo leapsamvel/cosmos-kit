@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { AssetList, Chain } from '@chain-registry/types';
+import type { AssetList, Chain } from '@chain-registry/types';
+import { isInIframe } from '@dao-dao/cosmiframe';
 import Bowser from 'bowser';
 import EventEmitter from 'events';
 
-import { ChainWalletBase, MainWalletBase, StateBase } from './bases';
-import { iframeWallet } from './iframe';
-import { NameService } from './name-service';
+import type { ChainWalletBase, MainWalletBase } from './bases';
+import { StateBase } from './bases';
+import { makeCosmiframeWallet } from './cosmiframe';
+import {
+  COSMIFRAME_KEYSTORECHANGE_EVENT,
+  COSMIFRAME_WALLET_ID,
+} from './cosmiframe/constants';
+import type { NameService } from './name-service';
 import { WalletRepo } from './repository';
 import {
   ChainName,
@@ -13,8 +19,6 @@ import {
   DeviceType,
   EndpointOptions,
   EventName,
-  IFRAME_KEYSTORECHANGE_EVENT,
-  IFRAME_WALLET_ID,
   NameServiceName,
   OS,
   SessionOptions,
@@ -24,12 +28,8 @@ import {
   WalletConnectOptions,
   WalletName,
 } from './types';
-import {
-  convertChain,
-  getNameServiceRegistryFromName,
-  Logger,
-  Session,
-} from './utils';
+import type { Logger } from './utils';
+import { convertChain, Session, WalletNotProvidedError } from './utils';
 
 export class WalletManager extends StateBase {
   chainRecords: ChainRecord[] = [];
@@ -41,19 +41,19 @@ export class WalletManager extends StateBase {
   readonly session: Session;
   repelWallet = true; // only allow one wallet type to connect at one time. i.e. you cannot connect keplr and cosmostation at the same time
   isLazy?: boolean; // stands for `globalIsLazy` setting
-  throwErrors: boolean;
+  throwErrors: boolean | 'connect_only';
   subscribeConnectEvents: boolean;
-  disableIframe: boolean;
+  cosmiframeEnabled: boolean;
   private _reconnectMap = {};
 
   constructor(
-    chains: Chain[],
-    assetLists: AssetList[],
+    chains: (Chain | ChainName)[],
     wallets: MainWalletBase[],
     logger: Logger,
-    throwErrors = false,
+    throwErrors: boolean | 'connect_only',
     subscribeConnectEvents = true,
-    disableIframe = false,
+    allowedCosmiframeParentOrigins?: string[],
+    assetLists?: AssetList[],
     defaultNameService?: NameServiceName,
     walletConnectOptions?: WalletConnectOptions,
     signerOptions?: SignerOptions,
@@ -63,7 +63,6 @@ export class WalletManager extends StateBase {
     super();
     this.throwErrors = throwErrors;
     this.subscribeConnectEvents = subscribeConnectEvents;
-    this.disableIframe = disableIframe;
     this.coreEmitter = new EventEmitter();
     this.logger = logger;
     if (defaultNameService) this.defaultNameService = defaultNameService;
@@ -77,19 +76,19 @@ export class WalletManager extends StateBase {
       ...sessionOptions,
     });
     this.walletConnectOptions = walletConnectOptions;
-    // Add iframe wallet to beginning of wallet list unless not in iframe or
-    // iframe is disabled.
+    this.cosmiframeEnabled =
+      isInIframe() && !!allowedCosmiframeParentOrigins?.length;
+    // Add Cosmiframe wallet to beginning of list if enabled.
     wallets = [
-      ...((typeof window !== 'undefined' && window.parent === window.self) ||
-        disableIframe
-        ? []
-        : [iframeWallet]),
+      ...(this.cosmiframeEnabled
+        ? [makeCosmiframeWallet(allowedCosmiframeParentOrigins)]
+        : []),
       ...wallets,
     ];
     wallets.forEach(
       ({ walletName }) =>
-      (this._reconnectMap[walletName] = () =>
-        this._reconnect(walletName, true))
+        (this._reconnectMap[walletName] = () =>
+          this._reconnect(walletName, true))
     );
     this.init(
       chains,
@@ -102,7 +101,7 @@ export class WalletManager extends StateBase {
   }
 
   init(
-    chains: Chain[],
+    chains: (Chain | ChainName)[],
     assetLists: AssetList[],
     wallets: MainWalletBase[],
     walletConnectOptions?: WalletConnectOptions,
@@ -115,11 +114,12 @@ export class WalletManager extends StateBase {
     this.isLazy = endpointOptions?.isLazy;
 
     this.chainRecords = chains.map((chain) => {
+      const chainName = typeof chain === 'string' ? chain : chain.chain_name;
       const converted = convertChain(
         chain,
         assetLists,
         signerOptions,
-        endpointOptions?.endpoints?.[chain.chain_name],
+        endpointOptions?.endpoints?.[chainName],
         this.isLazy,
         this.logger
       );
@@ -135,7 +135,7 @@ export class WalletManager extends StateBase {
       return wallet;
     });
 
-    this.chainRecords.forEach((chainRecord) => {
+    this.chainRecords.forEach((chainRecord, index) => {
       const repo = new WalletRepo(
         chainRecord,
         wallets.map(({ getChainWallet }) => getChainWallet(chainRecord.name)!)
@@ -144,6 +144,9 @@ export class WalletManager extends StateBase {
       repo.repelWallet = this.repelWallet;
       repo.session = this.session;
       this.walletRepos.push(repo);
+      if (repo.fetchInfo) {
+        this.chainRecords[index] = repo.chainRecord;
+      }
     });
     this.checkEndpoints(endpointOptions?.endpoints);
   }
@@ -174,21 +177,22 @@ export class WalletManager extends StateBase {
   };
 
   addChains = (
-    chains: Chain[],
+    chains: (Chain | ChainName)[],
     assetLists: AssetList[],
     signerOptions?: SignerOptions,
     endpoints?: EndpointOptions['endpoints']
   ) => {
-    const newChainRecords = chains.map((chain) =>
-      convertChain(
+    const newChainRecords = chains.map((chain) => {
+      const chainName = typeof chain === 'string' ? chain : chain.chain_name;
+      return convertChain(
         chain,
         assetLists,
         signerOptions,
-        endpoints?.[chain.chain_name],
+        endpoints?.[chainName],
         this.isLazy,
         this.logger
-      )
-    );
+      );
+    });
     newChainRecords.forEach((chainRecord) => {
       const index = this.chainRecords.findIndex(
         (chainRecord2) => chainRecord2.name !== chainRecord.name
@@ -206,7 +210,7 @@ export class WalletManager extends StateBase {
       wallet.setChains(newChainRecords, false);
     });
 
-    newChainRecords.forEach((chainRecord) => {
+    newChainRecords.forEach((chainRecord, i) => {
       const repo = new WalletRepo(
         chainRecord,
         this.mainWallets.map(
@@ -227,6 +231,10 @@ export class WalletManager extends StateBase {
       repo.logger = this.logger;
       repo.repelWallet = this.repelWallet;
       repo.session = this.session;
+
+      if (repo.fetchInfo) {
+        this.chainRecords[i] = repo.chainRecord;
+      }
 
       const index = this.walletRepos.findIndex(
         (repo2) => repo2.chainName !== repo.chainName
@@ -255,7 +263,7 @@ export class WalletManager extends StateBase {
     const wallet = this.mainWallets.find((w) => w.walletName === walletName);
 
     if (!wallet) {
-      throw new Error(`Wallet ${walletName} is not provided.`);
+      throw new WalletNotProvidedError(walletName);
     }
 
     return wallet;
@@ -317,6 +325,7 @@ export class WalletManager extends StateBase {
       if (!this.defaultNameService) {
         throw new Error('defaultNameService is undefined');
       }
+      const { getNameServiceRegistryFromName } = await import('./utils');
       const registry = getNameServiceRegistryFromName(this.defaultNameService);
       if (!registry) {
         throw new Error(
@@ -341,7 +350,7 @@ export class WalletManager extends StateBase {
     ) {
       return;
     }
-    this.logger?.debug('[CORE EVENT] Emit `refresh_connection`');
+    this.logger?.debug('[Event Emit] `refresh_connection` (manager)');
     this.coreEmitter.emit('refresh_connection');
     await this.getMainWallet(walletName).connect();
     await this.getMainWallet(walletName)
@@ -351,67 +360,79 @@ export class WalletManager extends StateBase {
 
   private _restoreAccounts = async () => {
     const walletName =
-      // If in an iframe and not disabled, default to the iframe wallet.
-      !this.disableIframe && window.parent !== window.self
-        ? IFRAME_WALLET_ID
+      // If Cosmiframe enabled, use it by default instead of stored wallet.
+      this.cosmiframeEnabled
+        ? COSMIFRAME_WALLET_ID
         : window.localStorage.getItem('cosmos-kit@2:core//current-wallet');
     if (walletName) {
-      const mainWallet = this.getMainWallet(walletName);
-      mainWallet.activate();
+      try {
+        const mainWallet = this.getMainWallet(walletName);
+        mainWallet.activate();
 
-      if (mainWallet.clientMutable.state === State.Done) {
-        const accountsStr = window.localStorage.getItem(
-          'cosmos-kit@2:core//accounts'
-        );
-        if (accountsStr && accountsStr !== '[]') {
-          const accounts: SimpleAccount[] = JSON.parse(accountsStr);
-          accounts.forEach((data) => {
-            const chainWallet = mainWallet
-              .getChainWalletList(false)
-              .find(
-                (w) =>
-                  w.chainRecord.chain.chain_id === data.chainId &&
-                  w.namespace === data.namespace
-              );
-            chainWallet?.activate();
-            if (mainWallet.walletInfo.mode === 'wallet-connect') {
-              chainWallet?.setData(data);
-              chainWallet?.setState(State.Done);
-            }
-          });
-          mainWallet.setState(State.Done);
+        if (mainWallet.clientMutable.state === State.Done) {
+          const accountsStr = window.localStorage.getItem(
+            'cosmos-kit@2:core//accounts'
+          );
+          if (accountsStr && accountsStr !== '[]') {
+            const accounts: SimpleAccount[] = JSON.parse(accountsStr);
+            accounts.forEach((data) => {
+              const chainWallet = mainWallet
+                .getChainWalletList(false)
+                .find(
+                  (w) =>
+                    w.chainRecord.chain?.chain_id === data.chainId &&
+                    w.namespace === data.namespace
+                );
+              chainWallet?.activate();
+              if (mainWallet.walletInfo.mode === 'wallet-connect') {
+                chainWallet?.setData(data);
+                chainWallet?.setState(State.Done);
+              }
+            });
+            mainWallet.setState(State.Done);
+          }
         }
-      }
 
-      if (mainWallet.walletInfo.mode !== 'wallet-connect') {
-        await this._reconnect(walletName);
+        if (mainWallet.walletInfo.mode !== 'wallet-connect') {
+          await this._reconnect(walletName);
+        }
+      } catch (error) {
+        if (error instanceof WalletNotProvidedError) {
+          this.logger?.warn(error.message);
+        } else {
+          throw error;
+        }
       }
     }
   };
 
-  _handleIframeKeystoreChangeEvent = (event: MessageEvent) => {
+  _handleCosmiframeKeystoreChangeEvent = (event: MessageEvent) => {
     if (
+      typeof event.data === 'object' &&
       'event' in event.data &&
-      event.data.event === IFRAME_KEYSTORECHANGE_EVENT
+      event.data.event === COSMIFRAME_KEYSTORECHANGE_EVENT
     ) {
       // Dispatch event to our window.
-      window.dispatchEvent(new Event(IFRAME_KEYSTORECHANGE_EVENT));
+      window.dispatchEvent(new Event(COSMIFRAME_KEYSTORECHANGE_EVENT));
 
       // Reconnect if the parent updates.
-      this._reconnect(IFRAME_WALLET_ID);
+      this._reconnect(COSMIFRAME_WALLET_ID);
     }
   };
 
   onMounted = async () => {
     if (typeof window === 'undefined') return;
 
-    // If in iframe, rebroadcast keystore change event messages as events and
-    // reconnect if the parent changes. Since the outer window can be a
-    // different origin (and it most likely is), it cannot dispatch events on
+    // If Cosmiframe enabled, rebroadcast keystore change event messages as
+    // events and reconnect if the parent changes. Since the outer window can be
+    // a different origin (and it most likely is), it cannot dispatch events on
     // our (the iframe's) window. Thus, it posts a message with the event name
     // to our window and we broadcast it.
-    if (!this.disableIframe && window.parent !== window.self) {
-      window.addEventListener('message', this._handleIframeKeystoreChangeEvent);
+    if (this.cosmiframeEnabled) {
+      window.addEventListener(
+        'message',
+        this._handleCosmiframeKeystoreChangeEvent
+      );
     }
 
     const parser = Bowser.getParser(window.navigator.userAgent);
@@ -433,12 +454,16 @@ export class WalletManager extends StateBase {
               eventName,
               this._reconnectMap[wallet.walletName]!
             );
+            this.logger?.debug(`Add "${eventName}" event listener to window`);
           });
           wallet.walletInfo.connectEventNamesOnClient?.forEach(
             async (eventName) => {
               wallet.client?.on?.(
                 eventName,
                 this._reconnectMap[wallet.walletName]!
+              );
+              this.logger?.debug(
+                `Add "${eventName}" event listener to wallet client ${wallet.walletPrettyName}`
               );
             }
           );
@@ -449,9 +474,6 @@ export class WalletManager extends StateBase {
         } else {
           await wallet.initClient();
         }
-        wallet.chainWalletMap?.forEach((chainWallet) => {
-          chainWallet.initClientDone(wallet.client);
-        });
       })
     );
 
@@ -463,11 +485,11 @@ export class WalletManager extends StateBase {
       return;
     }
 
-    // If in iframe, stop listening for keystore change event.
-    if (!this.disableIframe && window.parent !== window.self) {
+    // If using Cosmiframe, stop listening for keystore change event.
+    if (this.cosmiframeEnabled) {
       window.removeEventListener(
         'message',
-        this._handleIframeKeystoreChangeEvent
+        this._handleCosmiframeKeystoreChangeEvent
       );
     }
 

@@ -3,6 +3,205 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.16.0...docs@2.17.0) (2024-06-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.16.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.15.1...docs@2.16.0) (2024-06-05)
+
+
+### Features
+
+* add cdc wallet integration doc ([43b3f68](https://github.com/cosmology-tech/cosmos-kit/commit/43b3f6878998f33ad5e14ea393541e43d269b445))
+* add cdc wallet to package deps ([f1ab3e0](https://github.com/cosmology-tech/cosmos-kit/commit/f1ab3e029bddcf59d20926709fcd784c6ba3e24b))
+
+
+
+
+
+## [2.15.1](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.15.0...docs@2.15.1) (2024-05-29)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.15.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.14.0...docs@2.15.0) (2024-05-28)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.14.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.13.0...docs@2.14.0) (2024-05-23)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.13.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.12.0...docs@2.13.0) (2024-05-22)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.12.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.11.0...docs@2.12.0) (2024-05-08)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+# [2.11.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.10.1...docs@2.11.0) (2024-05-08)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [2.10.1](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.10.0...docs@2.10.1) (2024-04-27)
+
+### Bug Fixes
+
+- uninstalled wallet extensions never transition into NotExist state ([f52b5a7](https://github.com/cosmology-tech/cosmos-kit/commit/f52b5a7a64b1a6021b517baf06de6400e6719092))
+
+# [2.10.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.11...docs@2.10.0) (2024-04-20)
+
+**Note:** Version bump only for package docs
+
+## [2.9.11](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.10...docs@2.9.11) (2024-04-02)
+
+**Note:** Version bump only for package docs
+
+## [2.9.10](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.9...docs@2.9.10) (2024-03-07)
+
+**Note:** Version bump only for package docs
+
+## [2.9.9](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.8...docs@2.9.9) (2024-02-29)
+
+**Note:** Version bump only for package docs
+
+## [2.9.8](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.7...docs@2.9.8) (2024-02-28)
+
+### Bug Fixes
+
+- **docs:** remove chakra ([02b0830](https://github.com/cosmology-tech/cosmos-kit/commit/02b0830889782e6c4ce1c1125d6635ed73f6fcea))
+- sync nextra theme with interchain ui theme ([160a0e9](https://github.com/cosmology-tech/cosmos-kit/commit/160a0e90f03de090e67db1403ee93c3ac60163e4))
+
+## [2.9.7](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.6...docs@2.9.7) (2024-02-02)
+
+### Bug Fixes
+
+- replace docs dropdown with a new combobox and upgrade dependency version ([5c87bbf](https://github.com/cosmology-tech/cosmos-kit/commit/5c87bbf016e6770c0577891028e789c1d4fce390))
+
+## [2.9.6](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.5...docs@2.9.6) (2024-01-31)
+
+**Note:** Version bump only for package docs
+
+## [2.9.5](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.4...docs@2.9.5) (2024-01-31)
+
+**Note:** Version bump only for package docs
+
+## [2.9.4](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.3...docs@2.9.4) (2024-01-25)
+
+**Note:** Version bump only for package docs
+
+## [2.9.3](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.2...docs@2.9.3) (2024-01-23)
+
+**Note:** Version bump only for package docs
+
+## [2.9.2](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.1...docs@2.9.2) (2024-01-22)
+
+### Bug Fixes
+
+- broken docs ([25b3bf5](https://github.com/cosmology-tech/cosmos-kit/commit/25b3bf55932c57f30c8687ad486a020eccebd646))
+
+## [2.9.1](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.9.0...docs@2.9.1) (2024-01-22)
+
+**Note:** Version bump only for package docs
+
+# [2.9.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.12...docs@2.9.0) (2024-01-21)
+
+**Note:** Version bump only for package docs
+
+## [2.8.12](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.11...docs@2.8.12) (2024-01-21)
+
+**Note:** Version bump only for package docs
+
+## [2.8.11](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.10...docs@2.8.11) (2024-01-21)
+
+**Note:** Version bump only for package docs
+
+## [2.8.10](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.9...docs@2.8.10) (2024-01-21)
+
+**Note:** Version bump only for package docs
+
+## [2.8.9](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.8...docs@2.8.9) (2024-01-20)
+
+**Note:** Version bump only for package docs
+
+## [2.8.8](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.7...docs@2.8.8) (2024-01-20)
+
+**Note:** Version bump only for package docs
+
+## [2.8.7](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.6...docs@2.8.7) (2024-01-20)
+
+**Note:** Version bump only for package docs
+
+## [2.8.6](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.5...docs@2.8.6) (2024-01-20)
+
+**Note:** Version bump only for package docs
+
+## [2.8.5](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.4...docs@2.8.5) (2024-01-19)
+
+**Note:** Version bump only for package docs
+
+## [2.8.4](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.3...docs@2.8.4) (2024-01-19)
+
+**Note:** Version bump only for package docs
+
+## [2.8.3](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.2...docs@2.8.3) (2024-01-19)
+
+**Note:** Version bump only for package docs
+
+## [2.8.2](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.1...docs@2.8.2) (2024-01-15)
+
+**Note:** Version bump only for package docs
+
+## [2.8.1](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.8.0...docs@2.8.1) (2024-01-08)
+
+**Note:** Version bump only for package docs
+
+# [2.8.0](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.7.4...docs@2.8.0) (2024-01-07)
+
+**Note:** Version bump only for package docs
+
+## [2.7.4](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.7.3...docs@2.7.4) (2023-12-26)
+
+**Note:** Version bump only for package docs
+
+## [2.7.3](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.7.2...docs@2.7.3) (2023-12-25)
+
+**Note:** Version bump only for package docs
+
+## [2.7.2](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.7.1...docs@2.7.2) (2023-12-22)
+
+### Bug Fixes
+
+- client and wallet state wrongly changed ([6a26281](https://github.com/cosmology-tech/cosmos-kit/commit/6a262816879b10d2ffb38f03149374822e0ad635))
+
 ## [2.7.1](https://github.com/cosmology-tech/cosmos-kit/compare/docs@2.7.0...docs@2.7.1) (2023-12-18)
 
 ### Bug Fixes

@@ -1,5 +1,5 @@
-import { Wallet } from '@cosmos-kit/core'
-import { LEAP_SOCIAL_LOGIN_LOGO } from './constant'
+import { Wallet } from '@cosmos-kit/core';
+import { LEAP_SOCIAL_LOGIN_LOGO } from './constant';
 
 export const LeapSocialLoginInfo: Wallet = {
   name: 'leap-capsule-social-login',
@@ -10,6 +10,5 @@ export const LeapSocialLoginInfo: Wallet = {
   rejectMessage: {
     source: 'Request rejected',
   },
-  downloads: [
-  ],
-}
+  downloads: [],
+};

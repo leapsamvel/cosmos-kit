@@ -3,6 +3,168 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.19.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.18.0...example@2.19.0) (2024-06-12)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.18.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.17.1...example@2.18.0) (2024-06-05)
+
+
+### Features
+
+* add cdc wallet to package deps ([f1ab3e0](https://github.com/cosmology-tech/cosmos-kit/commit/f1ab3e029bddcf59d20926709fcd784c6ba3e24b))
+* add Crypto.com wallet extension ([b539fb4](https://github.com/cosmology-tech/cosmos-kit/commit/b539fb4e7939b60918b916e0b270f91f2c17d4f0))
+
+
+
+
+
+## [2.17.1](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.17.0...example@2.17.1) (2024-05-29)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.17.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.16.0...example@2.17.0) (2024-05-28)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.16.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.15.0...example@2.16.0) (2024-05-23)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.15.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.14.0...example@2.15.0) (2024-05-22)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.14.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.13.0...example@2.14.0) (2024-05-08)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [2.13.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.12.1...example@2.13.0) (2024-05-08)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [2.12.1](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.12.0...example@2.12.1) (2024-04-27)
+
+### Bug Fixes
+
+- uninstalled wallet extensions never transition into NotExist state ([f52b5a7](https://github.com/cosmology-tech/cosmos-kit/commit/f52b5a7a64b1a6021b517baf06de6400e6719092))
+
+# [2.12.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.15...example@2.12.0) (2024-04-20)
+
+**Note:** Version bump only for package example
+
+## [2.11.15](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.14...example@2.11.15) (2024-04-02)
+
+**Note:** Version bump only for package example
+
+## [2.11.14](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.13...example@2.11.14) (2024-03-07)
+
+**Note:** Version bump only for package example
+
+## [2.11.13](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.12...example@2.11.13) (2024-02-29)
+
+**Note:** Version bump only for package example
+
+## [2.11.12](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.11...example@2.11.12) (2024-02-28)
+
+### Bug Fixes
+
+- sync nextra theme with interchain ui theme ([160a0e9](https://github.com/cosmology-tech/cosmos-kit/commit/160a0e90f03de090e67db1403ee93c3ac60163e4))
+
+## [2.11.11](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.10...example@2.11.11) (2024-02-02)
+
+### Bug Fixes
+
+- replace docs dropdown with a new combobox and upgrade dependency version ([5c87bbf](https://github.com/cosmology-tech/cosmos-kit/commit/5c87bbf016e6770c0577891028e789c1d4fce390))
+
+## [2.11.10](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.9...example@2.11.10) (2024-01-31)
+
+**Note:** Version bump only for package example
+
+## [2.11.9](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.8...example@2.11.9) (2024-01-31)
+
+**Note:** Version bump only for package example
+
+## [2.11.8](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.7...example@2.11.8) (2024-01-25)
+
+**Note:** Version bump only for package example
+
+## [2.11.7](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.6...example@2.11.7) (2024-01-23)
+
+**Note:** Version bump only for package example
+
+## [2.11.6](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.5...example@2.11.6) (2024-01-22)
+
+**Note:** Version bump only for package example
+
+## [2.11.5](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.4...example@2.11.5) (2024-01-19)
+
+**Note:** Version bump only for package example
+
+## [2.11.4](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.3...example@2.11.4) (2024-01-19)
+
+**Note:** Version bump only for package example
+
+## [2.11.3](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.2...example@2.11.3) (2024-01-19)
+
+**Note:** Version bump only for package example
+
+## [2.11.2](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.1...example@2.11.2) (2024-01-15)
+
+**Note:** Version bump only for package example
+
+## [2.11.1](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.11.0...example@2.11.1) (2024-01-08)
+
+**Note:** Version bump only for package example
+
+# [2.11.0](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.6...example@2.11.0) (2024-01-07)
+
+**Note:** Version bump only for package example
+
+## [2.10.6](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.5...example@2.10.6) (2023-12-28)
+
+**Note:** Version bump only for package example
+
+## [2.10.5](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.4...example@2.10.5) (2023-12-26)
+
+**Note:** Version bump only for package example
+
+## [2.10.4](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.3...example@2.10.4) (2023-12-25)
+
+**Note:** Version bump only for package example
+
+## [2.10.3](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.2...example@2.10.3) (2023-12-22)
+
+**Note:** Version bump only for package example
+
 ## [2.10.2](https://github.com/cosmology-tech/cosmos-kit/compare/example@2.10.1...example@2.10.2) (2023-12-18)
 
 **Note:** Version bump only for package example

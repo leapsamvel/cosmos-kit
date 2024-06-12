@@ -4,10 +4,11 @@ import { wallets } from "cosmos-kit";
 import type { AppProps } from "next/app";
 import { assets, chains } from "chain-registry";
 import { ChainProvider } from "@cosmos-kit/react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ThemeProvider, useTheme } from "@interchain-ui/react";
+import { useNextraTheme } from "../components/hooks";
 // import { makeWeb3AuthWallets } from "@cosmos-kit/web3auth";
 import "nextra-theme-docs/style.css";
-import React, { useMemo } from "react";
+import React from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   // const web3AuthWallets = useMemo(
@@ -30,9 +31,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   //     }),
   //   []
   // );
+  const { setTheme, themeClass, theme } = useTheme();
+
+  // Sync nextra theme with interchain ui theme
+  useNextraTheme({
+    onThemeChange(theme) {
+      setTheme(theme);
+    },
+  });
 
   return (
-    <ChakraProvider>
+    <ThemeProvider>
       <ChainProvider
         chains={chains}
         assetLists={assets}
@@ -44,14 +53,17 @@ function MyApp({ Component, pageProps }: AppProps) {
             "station",
             "cosmostation",
             "omni",
-            "exodus",
             "shell",
             "vectis",
             "frontier",
             "leap",
             "xdefi",
             "coin98",
-            "fin"
+            "fin",
+            "tailwind",
+            "owallet",
+            "galaxystation",
+            "cdcwallet"
           ),
           // ...web3AuthWallets,
         ]}
@@ -70,9 +82,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           },
         }}
       >
-        <Component {...pageProps} />
+        <div className={themeClass}>
+          <Component {...pageProps} />
+        </div>
       </ChainProvider>
-    </ChakraProvider>
+    </ThemeProvider>
   );
 }
 

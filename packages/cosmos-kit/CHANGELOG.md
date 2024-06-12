@@ -3,6 +3,206 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.16.0...cosmos-kit@2.17.0) (2024-06-12)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.16.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.15.1...cosmos-kit@2.16.0) (2024-06-05)
+
+
+### Features
+
+* add cdc wallet to all wallets list ([d3ad047](https://github.com/cosmology-tech/cosmos-kit/commit/d3ad047d281b751b1f5c51f0c91b45c4703bb338))
+* add cdc wallet to package deps ([f1ab3e0](https://github.com/cosmology-tech/cosmos-kit/commit/f1ab3e029bddcf59d20926709fcd784c6ba3e24b))
+
+
+
+
+
+## [2.15.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.15.0...cosmos-kit@2.15.1) (2024-05-29)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.15.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.14.0...cosmos-kit@2.15.0) (2024-05-28)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.14.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.13.0...cosmos-kit@2.14.0) (2024-05-23)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.13.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.12.0...cosmos-kit@2.13.0) (2024-05-22)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.12.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.11.0...cosmos-kit@2.12.0) (2024-05-08)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+# [2.11.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.10.3...cosmos-kit@2.11.0) (2024-05-08)
+
+**Note:** Version bump only for package cosmos-kit
+
+
+
+
+
+## [2.10.3](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.10.2...cosmos-kit@2.10.3) (2024-05-07)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.10.2](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.10.1...cosmos-kit@2.10.2) (2024-04-28)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.10.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.10.0...cosmos-kit@2.10.1) (2024-04-27)
+
+**Note:** Version bump only for package cosmos-kit
+
+# [2.10.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.9.4...cosmos-kit@2.10.0) (2024-04-20)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.9.4](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.9.3...cosmos-kit@2.9.4) (2024-04-02)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.9.3](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.9.2...cosmos-kit@2.9.3) (2024-03-07)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.9.2](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.9.1...cosmos-kit@2.9.2) (2024-02-29)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.9.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.9.0...cosmos-kit@2.9.1) (2024-02-28)
+
+**Note:** Version bump only for package cosmos-kit
+
+# [2.9.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.6...cosmos-kit@2.9.0) (2024-02-02)
+
+### Features
+
+- Add support for Trust Extension ([38b3653](https://github.com/cosmology-tech/cosmos-kit/commit/38b365326457e592f739dd5bb94dbbed5405f21d))
+
+## [2.8.6](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.5...cosmos-kit@2.8.6) (2024-01-31)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.8.5](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.4...cosmos-kit@2.8.5) (2024-01-31)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.8.4](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.3...cosmos-kit@2.8.4) (2024-01-25)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.8.3](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.2...cosmos-kit@2.8.3) (2024-01-23)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.8.2](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.1...cosmos-kit@2.8.2) (2024-01-22)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.8.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.8.0...cosmos-kit@2.8.1) (2024-01-22)
+
+**Note:** Version bump only for package cosmos-kit
+
+# [2.8.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.12...cosmos-kit@2.8.0) (2024-01-21)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.12](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.11...cosmos-kit@2.7.12) (2024-01-21)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.11](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.10...cosmos-kit@2.7.11) (2024-01-21)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.10](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.9...cosmos-kit@2.7.10) (2024-01-21)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.9](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.8...cosmos-kit@2.7.9) (2024-01-20)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.8](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.7...cosmos-kit@2.7.8) (2024-01-20)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.7](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.6...cosmos-kit@2.7.7) (2024-01-20)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.6](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.5...cosmos-kit@2.7.6) (2024-01-20)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.5](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.4...cosmos-kit@2.7.5) (2024-01-19)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.4](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.3...cosmos-kit@2.7.4) (2024-01-19)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.3](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.2...cosmos-kit@2.7.3) (2024-01-19)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.2](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.1...cosmos-kit@2.7.2) (2024-01-15)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.7.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.7.0...cosmos-kit@2.7.1) (2024-01-08)
+
+**Note:** Version bump only for package cosmos-kit
+
+# [2.7.0](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.6.4...cosmos-kit@2.7.0) (2024-01-07)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.6.4](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.6.3...cosmos-kit@2.6.4) (2023-12-26)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.6.3](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.6.2...cosmos-kit@2.6.3) (2023-12-25)
+
+**Note:** Version bump only for package cosmos-kit
+
+## [2.6.2](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.6.1...cosmos-kit@2.6.2) (2023-12-22)
+
+### Bug Fixes
+
+- client and wallet state wrongly changed ([6a26281](https://github.com/cosmology-tech/cosmos-kit/commit/6a262816879b10d2ffb38f03149374822e0ad635))
+
 ## [2.6.1](https://github.com/cosmology-tech/cosmos-kit/compare/cosmos-kit@2.6.0...cosmos-kit@2.6.1) (2023-12-18)
 
 **Note:** Version bump only for package cosmos-kit

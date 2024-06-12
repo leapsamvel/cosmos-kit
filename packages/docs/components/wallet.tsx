@@ -1,5 +1,5 @@
 import { useManager } from "@cosmos-kit/react";
-import { Center, Grid, GridItem } from "@chakra-ui/react";
+import { ThemeProvider, useTheme, Box } from "@interchain-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import {
   ChainOption,
@@ -11,6 +11,8 @@ import { ChainName } from "@cosmos-kit/core";
 import { WalletCardSection } from "./card";
 
 export const WalletSection = () => {
+  const { themeClass } = useTheme();
+
   const [chainName, setChainName] = useState<ChainName | undefined>(
     "cosmoshub"
   );
@@ -44,31 +46,33 @@ export const WalletSection = () => {
     }
   };
 
-  const chooseChain = (
-    <ChooseChain
-      chainName={chainName}
-      chainInfos={chainOptions}
-      onChange={onChainChange}
-    />
-  );
-
   return (
-    <Center py={16}>
-      <Grid
-        w="full"
-        maxW="sm"
-        templateColumns="1fr"
-        rowGap={4}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <GridItem>{chooseChain}</GridItem>
-        {chainName ? (
-          <WalletCardSection chainName={chainName}></WalletCardSection>
-        ) : (
-          <ConnectWalletButton buttonText={"Connect Wallet"} isDisabled />
-        )}
-      </Grid>
-    </Center>
+    <ThemeProvider>
+      <div className={themeClass}>
+        <Box py="$8" display="flex" justifyContent="center" alignItems="center">
+          <Box
+            display="grid"
+            width="$full"
+            maxWidth="400px"
+            gridTemplateColumns="1fr"
+            rowGap="$8"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <ChooseChain
+              chainName={chainName}
+              chainInfos={chainOptions}
+              onChange={onChainChange}
+            />
+
+            {chainName ? (
+              <WalletCardSection chainName={chainName}></WalletCardSection>
+            ) : (
+              <ConnectWalletButton buttonText={"Connect Wallet"} isDisabled />
+            )}
+          </Box>
+        </Box>
+      </div>
+    </ThemeProvider>
   );
 };

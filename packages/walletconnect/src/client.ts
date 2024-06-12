@@ -1,36 +1,38 @@
-import {
+import type {
   AminoSignResponse,
   OfflineAminoSigner,
   StdSignDoc,
 } from '@cosmjs/amino';
-import {
+import type {
   Algo,
   DirectSignResponse,
   OfflineDirectSigner,
 } from '@cosmjs/proto-signing';
-import {
+import type {
   AppUrl,
   DappEnv,
   DirectSignDoc,
-  ExpiredError,
+  DisconnectOptions,
   Logger,
   Mutable,
-  RejectedError,
   SignOptions,
   SignType,
   SimpleAccount,
-  State,
   Wallet,
   WalletAccount,
   WalletClient,
   WalletClientActions,
   WalletConnectOptions,
 } from '@cosmos-kit/core';
+import { ExpiredError, RejectedError, State } from '@cosmos-kit/core';
 import SignClient from '@walletconnect/sign-client';
-import { EngineTypes, PairingTypes, SessionTypes } from '@walletconnect/types';
-import { getSdkError } from '@walletconnect/utils';
-import EventEmitter from 'events';
-import Long from 'long';
+import {
+  EngineTypes,
+  PairingTypes,
+  SessionTypes,
+  SignClientTypes,
+} from '@walletconnect/types';
+import type EventEmitter from 'events';
 
 import { WCAccount, WCSignDirectRequest, WCSignDirectResponse } from './types';
 import { CoreUtil } from './utils';
@@ -213,6 +215,20 @@ export class WCClient implements WalletClient {
     }
   }
 
+  async deleteAllPairings() {
+    if (typeof this.signClient === 'undefined') {
+      throw new Error('WalletConnect is not initialized');
+    }
+
+    for (const pairing of this.signClient.pairing.getAll()) {
+      await this.signClient.pairing.delete(pairing.topic, {
+        code: 7001,
+        message: 'Clear pairings.',
+      });
+      this.logger?.debug('Delete pairing:', pairing.topic);
+    }
+  }
+
   restorePairings() {
     if (typeof this.signClient === 'undefined') {
       throw new Error('WalletConnect is not initialized');
@@ -297,7 +313,9 @@ export class WCClient implements WalletClient {
       return;
     }
 
-    this.signClient = await SignClient.init(this.options?.signClient);
+    this.signClient = await SignClient.init(
+      this.options?.signClient as SignClientTypes.Options
+    );
     this.relayUrl = this.options?.signClient.relayUrl;
 
     this.logger?.debug('CREATED CLIENT: ', this.signClient);
@@ -432,7 +450,7 @@ export class WCClient implements WalletClient {
         events: [
           'chainChanged',
           'accountsChanged',
-          ...(this.requiredNamespaces?.methods ?? []),
+          ...(this.requiredNamespaces?.events ?? []),
         ],
       },
     };
@@ -485,10 +503,13 @@ export class WCClient implements WalletClient {
     }
   }
 
-  async disconnect() {
+  async disconnect(options?: DisconnectOptions) {
     if (typeof this.signClient === 'undefined') {
       await this.init();
       // throw new Error('WalletConnect is not initialized');
+    }
+    if (options?.walletconnect?.removeAllPairings === true) {
+      await this.deleteAllPairings();
     }
     if (this.sessions.length === 0) {
       return;
@@ -497,6 +518,7 @@ export class WCClient implements WalletClient {
     for (const session of this.sessions) {
       try {
         this.logger?.debug('Delete session:', session);
+        const { getSdkError } = await import('@walletconnect/utils');
         await this.signClient.disconnect({
           topic: session.topic,
           reason: getSdkError('USER_DISCONNECTED'),
@@ -673,7 +695,7 @@ export class WCClient implements WalletClient {
     return {
       signed: {
         chainId: signed.chainId,
-        accountNumber: Long.fromString(signed.accountNumber, false),
+        accountNumber: BigInt(signed.accountNumber),
         authInfoBytes: new Uint8Array(
           Buffer.from(signed.authInfoBytes, this.wcEncoding)
         ),

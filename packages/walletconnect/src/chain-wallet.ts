@@ -1,10 +1,10 @@
 import {
-  ChainRecord,
+  type ChainRecord,
+  type Mutable,
+  type Wallet,
+  type WalletConnectOptions,
   ChainWalletBase,
-  Mutable,
   State,
-  Wallet,
-  WalletConnectOptions,
 } from '@cosmos-kit/core';
 
 import { WCClient } from './client';

@@ -1,5 +1,6 @@
-import { AssetList, Chain } from '@chain-registry/types';
+import type { AssetList, Chain } from '@chain-registry/types';
 import {
+  ChainName,
   Data,
   EndpointOptions,
   Logger,
@@ -34,14 +35,18 @@ export function ChainProvider({
   endpointOptions,
   sessionOptions,
   logLevel = 'WARN',
-  disableIframe = false,
+  allowedIframeParentOrigins = [
+    'https://app.osmosis.zone',
+    'https://daodao.zone',
+    'https://dao.daodao.zone',
+  ],
   children,
 }: {
-  chains: Chain[];
-  assetLists: AssetList[];
+  chains: (Chain | ChainName)[];
   wallets: MainWalletBase[];
+  assetLists?: AssetList[];
   walletModal?: (props: WalletModalProps) => JSX.Element;
-  throwErrors?: boolean;
+  throwErrors?: boolean | 'connect_only';
   subscribeConnectEvents?: boolean;
   defaultNameService?: NameServiceName;
   walletConnectOptions?: WalletConnectOptions; // SignClientOptions is required if using wallet connect v2
@@ -49,40 +54,50 @@ export function ChainProvider({
   endpointOptions?: EndpointOptions;
   sessionOptions?: SessionOptions;
   logLevel?: LogLevel;
-  disableIframe?: boolean;
+  /**
+   * Origins to allow wrapping this app in an iframe and connecting to this
+   * Cosmos Kit instance.
+   *
+   * Defaults to Osmosis and DAO DAO.
+   */
+  allowedIframeParentOrigins?: string[];
   children: ReactNode;
 }) {
   const logger = useMemo(() => new Logger(logLevel), []);
-  const walletManager = useMemo(
-    () =>
-      new WalletManager(
-        chains,
-        assetLists,
-        wallets,
-        logger,
-        throwErrors,
-        subscribeConnectEvents,
-        disableIframe,
-        defaultNameService,
-        walletConnectOptions,
-        signerOptions,
-        endpointOptions,
-        sessionOptions
-      ),
-    []
-  );
+  const walletManager = useMemo(() => {
+    return new WalletManager(
+      chains,
+      wallets,
+      logger,
+      throwErrors,
+      subscribeConnectEvents,
+      allowedIframeParentOrigins,
+      assetLists,
+      defaultNameService,
+      walletConnectOptions,
+      signerOptions,
+      endpointOptions,
+      sessionOptions
+    );
+  }, []);
 
   const [isViewOpen, setViewOpen] = useState<boolean>(false);
   const [viewWalletRepo, setViewWalletRepo] = useState<
     WalletRepo | undefined
   >();
 
-  const [, setData] = useState<Data>();
-  const [, setState] = useState<State>(State.Init);
-  const [, setMsg] = useState<string | undefined>();
+  const [data, setData] = useState<Data>();
+  const [state, setState] = useState<State>(State.Init);
+  const [msg, setMsg] = useState<string | undefined>();
 
   const [, setClientState] = useState<State>(State.Init);
   const [, setClientMsg] = useState<string | undefined>();
+
+  const [render, forceRender] = useState<number>(0);
+
+  logger.debug('[provider.tsx] data:', data);
+  logger.debug('[provider.tsx] state:', state);
+  logger.debug('[provider.tsx] message:', msg);
 
   walletManager.setActions({
     viewOpen: setViewOpen,
@@ -96,6 +111,7 @@ export function ChainProvider({
     wr.setActions({
       viewOpen: setViewOpen,
       viewWalletRepo: setViewWalletRepo,
+      render: forceRender,
     });
     wr.wallets.forEach((w) => {
       w.setActions({
@@ -122,7 +138,7 @@ export function ChainProvider({
       setViewOpen(false);
       walletManager.onUnmounted();
     };
-  }, []);
+  }, [render]);
 
   return (
     <walletContext.Provider

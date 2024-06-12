@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.6.0...@cosmos-kit/leap-capsule-social-login@0.7.0) (2024-05-28)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+
+
+
+
+# [0.6.0](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.5.0...@cosmos-kit/leap-capsule-social-login@0.6.0) (2024-05-22)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+
+
+
+
+# [0.5.0](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.4.3...@cosmos-kit/leap-capsule-social-login@0.5.0) (2024-05-08)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+
+
+
+
+## [0.4.3](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.4.2...@cosmos-kit/leap-capsule-social-login@0.4.3) (2024-05-07)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## [0.4.2](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.4.1...@cosmos-kit/leap-capsule-social-login@0.4.2) (2024-04-28)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## [0.4.1](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.4.0...@cosmos-kit/leap-capsule-social-login@0.4.1) (2024-04-27)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+# [0.4.0](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.3.14...@cosmos-kit/leap-capsule-social-login@0.4.0) (2024-04-20)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## [0.3.14](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.3.13...@cosmos-kit/leap-capsule-social-login@0.3.14) (2024-04-02)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## [0.3.13](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.3.12...@cosmos-kit/leap-capsule-social-login@0.3.13) (2024-01-31)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## [0.3.12](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-capsule-social-login@0.3.11...@cosmos-kit/leap-capsule-social-login@0.3.12) (2024-01-25)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
+## 0.3.11 (2024-01-23)
+
+**Note:** Version bump only for package @cosmos-kit/leap-capsule-social-login
+
 ## [0.3.10](https://github.com/cosmology-tech/cosmos-kit/compare/@cosmos-kit/leap-metamask-cosmos-snap@0.3.9...@cosmos-kit/leap-metamask-cosmos-snap@0.3.10) (2023-12-07)
 
 **Note:** Version bump only for package @cosmos-kit/leap-metamask-cosmos-snap

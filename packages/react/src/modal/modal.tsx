@@ -1,4 +1,5 @@
 import {
+  ModalOptions,
   ModalView,
   State,
   WalletListViewProps,
@@ -25,6 +26,7 @@ import {
   WalletListImplGetter,
   WalletViewImplGetter,
 } from './components/views';
+import { useSelectedWalletRepoContext } from '../context';
 
 export type ModalCustomizationProps = {
   modalContainerClassName?: string;
@@ -42,6 +44,7 @@ export type ThemeCustomizationProps = ModalCustomizationProps &
 export type WalletModalComponentProps = WalletModalProps &
   ThemeCustomizationProps & {
     modalViews: typeof defaultModalViews;
+    modalOptions?: ModalOptions;
     includeAllWalletsOnMobile?: boolean;
   };
 
@@ -50,6 +53,7 @@ export function WalletModal({
   setOpen,
   walletRepo,
   modalViews,
+  modalOptions,
   includeAllWalletsOnMobile,
   overrides,
   themeDefs,
@@ -68,7 +72,17 @@ export function WalletModal({
   const [qrState, setQRState] = useState<State>(State.Init); // state of QRCode
   const [qrMsg, setQRMsg] = useState<string>(''); //   message of QRCode error
 
-  const current = walletRepo?.current;
+  const disconnectOptions = {
+    walletconnect: {
+      removeAllPairings: modalOptions?.mobile?.displayQRCodeEveryTime,
+    },
+  };
+  walletRepo?.setCallbackOptions({
+    beforeConnect: { disconnect: disconnectOptions },
+  });
+
+  const { selectedWalletRepo } = useSelectedWalletRepoContext()
+  const current = walletRepo?.wallets.find(w => w.walletName === selectedWalletRepo?.walletName);
 
   (current?.client as any)?.setActions?.({
     qrUrl: {
@@ -103,9 +117,14 @@ export function WalletModal({
         case WalletStatus.Rejected:
           setCurrentView(ModalView.Rejected);
           break;
-        case WalletStatus.NotExist:
-          setCurrentView(ModalView.NotExist);
+        case WalletStatus.NotExist: {
+          setCurrentView((prev) =>
+            prev === ModalView.Connected
+              ? ModalView.WalletList
+              : ModalView.NotExist
+          );
           break;
+        }
         case WalletStatus.Disconnected:
           setCurrentView(ModalView.WalletList);
           break;
@@ -114,12 +133,21 @@ export function WalletModal({
           break;
       }
     }
-  }, [isOpen, qrState, walletStatus, qrMsg, message]);
+  }, [qrState, walletStatus, qrMsg, message]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    if (walletStatus === 'Connected') {
+      setCurrentView(ModalView.Connected);
+    } else {
+      setCurrentView(ModalView.WalletList);
+    }
+  }, [isOpen]);
 
   const onCloseModal = useCallback(() => {
     setOpen(false);
     if (walletStatus === 'Connecting') {
-      current?.disconnect();
+      current?.disconnect(false, disconnectOptions);
     }
   }, [setOpen, walletStatus, current]);
 
@@ -163,6 +191,7 @@ export function WalletModal({
           onClose: onCloseModal,
           onReturn: onReturn,
           wallet: current,
+          options: modalOptions,
         } as WalletViewProps);
       }
     }
